@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=7.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.0\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.8.6\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
@@ -45,6 +48,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -84,19 +88,37 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AutoMapperExtention.cs" />
     <Compile Include="ContainerConfiguration.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertBoolConverter.cs" />
     <Compile Include="MainWindowDataModel.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Settings\IsolatedStorageFacade.cs" />
+    <Compile Include="Settings\SettingsProfile.cs" />
+    <Compile Include="Settings\SettingsProxy.cs" />
+    <Compile Include="Settings\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\SettingsWindowController.cs" />
+    <Compile Include="Settings\SettingsWindowModel.cs" />
+    <Compile Include="Settings\SpeechkinAppSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>SpeechkinAppSettings.settings</DependentUpon>
+    </Compile>
     <Compile Include="SpeechkinController.cs" />
     <Compile Include="SpeechUI\SourceType.cs" />
     <Compile Include="Speech\BingSpeechService.cs" />
     <Compile Include="Speech\DefaultMicrophoneSource.cs" />
     <Compile Include="Speech\ISoundDataDestination.cs" />
     <Compile Include="Speech\SoundSource.cs" />
-    <Compile Include="Speech\ISpeechSettings.cs" />
+    <Compile Include="Settings\ISpeechSettings.cs" />
     <Compile Include="Speech\SystemSource.cs" />
     <Compile Include="Speech\WaveFormats.cs" />
+    <Compile Include="Translate\Links.cs" />
+    <Compile Include="WindowControllerBase.cs" />
+    <Compile Include="WindowFabric.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -109,6 +131,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Settings\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -132,6 +158,10 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Settings\SpeechkinAppSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>SpeechkinAppSettings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

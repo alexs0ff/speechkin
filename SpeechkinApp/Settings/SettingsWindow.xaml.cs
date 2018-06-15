@@ -10,32 +10,33 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SpeechkinApp.Settings;
 
-namespace SpeechkinApp
+namespace SpeechkinApp.Settings
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// TODO: rewrite to navigation layout
+    /// Interaction logic for SettingsWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SettingsWindow : Window
     {
-        private readonly SpeechkinController _controller;
+        private readonly SettingsWindowController _controller;
 
-        public MainWindow(SpeechkinController controller, WindowFabric windowFabric)
+        public SettingsWindow(SettingsWindowController controller)
         {
             _controller = controller;
             InitializeComponent();
-
             _controller.SetWindow(this);
         }
 
-
-        private void ShowOptionsClick(object sender, RoutedEventArgs e)
+        private void CancelClick(object sender, RoutedEventArgs e)
         {
-            _controller.ShowSettings();
+            _controller.Close();
+        }
+
+        private void SaveClick(object sender, RoutedEventArgs e)
+        {
+            _controller.Save();
+            _controller.Close();
         }
     }
 }

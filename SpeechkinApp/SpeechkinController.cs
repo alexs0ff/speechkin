@@ -3,17 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SpeechkinApp.Settings;
 
 namespace SpeechkinApp
 {
-    public class SpeechkinController
+    public class SpeechkinController: WindowControllerBase<MainWindowDataModel>
     {
-        public MainWindowDataModel MainWindowDataModel { get; }
+        private readonly WindowFabric _windowFabric;
 
-        public SpeechkinController()
+        public SpeechkinController(WindowFabric windowFabric)
         {
-            MainWindowDataModel = new MainWindowDataModel();
-            MainWindowDataModel.IsStarted = false;
+            _windowFabric = windowFabric;
+            Model = new MainWindowDataModel();
+            Model.IsStarted = false;
+        }
+
+        public void ShowSettings()
+        {
+            var window = _windowFabric.CreateWindow<SettingsWindow>();
+
+            window.ShowDialog();
         }
 
         public void StartRecognition()

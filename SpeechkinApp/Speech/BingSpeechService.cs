@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.CognitiveServices.SpeechRecognition;
+using SpeechkinApp.Settings;
 
 namespace SpeechkinApp.Speech
 {
@@ -38,7 +39,7 @@ namespace SpeechkinApp.Speech
                 SpeechRecognitionMode.LongDictation,
                 _speechSettings.SpeechLanguage,
                 _speechSettings.AzureSpeechPrimaryKey, _speechSettings.AzureSpeechSecondaryKey,
-                _speechSettings.AzureAuthUrl);
+                _speechSettings.AzureSpeechAuthUrl);
 
             _started = true;
             _client.SendAudioFormat(SpeechAudioFormat.create16BitPCMFormat(WaveFormats.Frequency));

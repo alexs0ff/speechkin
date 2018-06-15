@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using SpeechkinApp.Settings;
 using Unity;
 
 namespace SpeechkinApp
@@ -20,6 +21,9 @@ namespace SpeechkinApp
             var configuration = new ContainerConfiguration();
 
             var container = configuration.GetContainer();
+
+            var settings = container.Resolve<SettingsProxy>();
+            settings.Load();
 
             MainWindow = container.Resolve<MainWindow>();
 

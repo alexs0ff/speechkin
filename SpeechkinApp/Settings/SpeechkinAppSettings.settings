@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SpeechkinApp.Settings" GeneratedClassName="User">
+  <Profiles />
+  <Settings>
+    <Setting Name="SpeechAuthUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://api.cognitive.microsoft.com/sts/v1.0</Value>
+    </Setting>
+    <Setting Name="SpeechLanguageDefault" Type="System.String" Scope="User">
+      <Value Profile="(Default)">en-US</Value>
+    </Setting>
+    <Setting Name="TranslateUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://api.cognitive.microsofttranslator.com</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

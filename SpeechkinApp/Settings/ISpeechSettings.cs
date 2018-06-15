@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SpeechkinApp.Speech
+﻿namespace SpeechkinApp.Settings
 {
     public interface ISpeechSettings
     {
@@ -12,7 +6,7 @@ namespace SpeechkinApp.Speech
 
         string AzureSpeechSecondaryKey { get; }
 
-        string AzureAuthUrl { get; }
+        string AzureSpeechAuthUrl { get; }
 
         string SpeechLanguage { get; }
 
