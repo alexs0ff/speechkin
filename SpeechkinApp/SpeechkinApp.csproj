@@ -89,6 +89,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AutoMapperExtention.cs" />
+    <Compile Include="Behaviors\ParagraphInlineBehavior.cs" />
     <Compile Include="ContainerConfiguration.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertBoolConverter.cs" />
@@ -108,12 +109,15 @@
       <DependentUpon>SpeechkinAppSettings.settings</DependentUpon>
     </Compile>
     <Compile Include="SpeechkinController.cs" />
-    <Compile Include="SpeechUI\SourceType.cs" />
+    <Compile Include="Speech\RecognitionItem.cs" />
+    <Compile Include="Speech\SourceType.cs" />
     <Compile Include="Speech\BingSpeechService.cs" />
     <Compile Include="Speech\DefaultMicrophoneSource.cs" />
     <Compile Include="Speech\ISoundDataDestination.cs" />
+    <Compile Include="Speech\RecognitionStartParameters.cs" />
     <Compile Include="Speech\SoundSource.cs" />
     <Compile Include="Settings\ISpeechSettings.cs" />
+    <Compile Include="Speech\SpeechRecognitionClient.cs" />
     <Compile Include="Speech\SystemSource.cs" />
     <Compile Include="Speech\WaveFormats.cs" />
     <Compile Include="Translate\Links.cs" />

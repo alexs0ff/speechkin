@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SpeechkinApp.Settings;
+using SpeechkinApp.Speech;
 
 namespace SpeechkinApp
 {
@@ -11,9 +12,12 @@ namespace SpeechkinApp
     {
         private readonly WindowFabric _windowFabric;
 
-        public SpeechkinController(WindowFabric windowFabric)
+        private readonly SpeechRecognitionClient _recognitionClient;
+
+        public SpeechkinController(WindowFabric windowFabric, SpeechRecognitionClient recognitionClient)
         {
             _windowFabric = windowFabric;
+            _recognitionClient = recognitionClient;
             Model = new MainWindowDataModel();
             Model.IsStarted = false;
         }
@@ -27,7 +31,17 @@ namespace SpeechkinApp
 
         public void StartRecognition()
         {
-            
+            _recognitionClient.Start(parameters =>
+            {
+                parameters.Source = (SourceType) Model.CurrentSource;
+            });
+            Model.IsStarted = true;
+        }
+
+        public void Stop()
+        {
+            Model.IsStarted = false;
+            _recognitionClient.Stop();
         }
     }
 }

@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpeechkinApp.SpeechUI
+namespace SpeechkinApp.Speech
 {
-    public enum SourceType
+    public class RecognitionStartParameters
     {
-        System =0,
-
-        Microphone =1
+        public SourceType Source { get; set; }
     }
 }

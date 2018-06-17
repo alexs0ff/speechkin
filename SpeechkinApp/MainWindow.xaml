@@ -8,6 +8,7 @@
         Title="Speechkin" Height="362.005" Width="686.609"
         xmlns:vm="clr-namespace:SpeechkinApp"
         xmlns:converters="clr-namespace:SpeechkinApp.Converters"
+        xmlns:behaviors="clr-namespace:SpeechkinApp.Behaviors"
         d:DataContext="{d:DesignInstance local:MainWindowDataModel}"
         >
     <Window.Resources>
@@ -32,16 +33,31 @@
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
-                <ComboBox SelectedIndex="0" Width="150">
+                <ComboBox SelectedIndex="{Binding CurrentSource}" Width="150" VerticalContentAlignment="Center" IsEnabled="{Binding Path=IsStarted, Converter={StaticResource InvertBoolConverter}}">
                     <ComboBoxItem>System sounds</ComboBoxItem>
                     <ComboBoxItem>Microphone</ComboBoxItem>
                 </ComboBox>
-                <Button Margin="50,0,10,0" Style="{StaticResource DashboardButtonStyle}" IsEnabled="{Binding Path=IsStarted}">Start</Button>
-                <Button Style="{StaticResource DashboardButtonStyle}" IsEnabled="{Binding Path=IsStarted, Converter={StaticResource InvertBoolConverter}}">Stop</Button>
+                <Button Margin="50,0,10,0" Style="{StaticResource DashboardButtonStyle}" IsEnabled="{Binding Path=IsStarted, Converter={StaticResource InvertBoolConverter}}">Start</Button>
+                <Button Style="{StaticResource DashboardButtonStyle}" IsEnabled="{Binding Path=IsStarted}">Stop</Button>
             </StackPanel>
-            <Button Grid.Column="1" Style="{StaticResource DashboardButtonStyle}" Click="ShowOptionsClick">Options</Button>
+            <Button Grid.Column="1" Style="{StaticResource DashboardButtonStyle}" Click="ShowOptionsClick" IsEnabled="{Binding Path=IsStarted, Converter={StaticResource InvertBoolConverter}}">Options</Button>
         </Grid>
-        
-        
+        <FlowDocumentReader xmlns:Collections="clr-namespace:System.Collections;assembly=mscorlib" Grid.Row="1" Margin="0,10,0,0">
+            <FlowDocument>
+                <Paragraph behaviors:ParagraphInlineBehavior.ParagraphInlineSource="{Binding RecognitionItems}"
+                           behaviors:ParagraphInlineBehavior.TemplateResourceName="inlineTemplate">
+                    <Paragraph.Resources>
+                        <Collections:ArrayList x:Shared="False" x:Key="inlineTemplate">
+                            <Bold>
+                                <Run Text="{Binding Text}"/>
+                            </Bold>
+                            <LineBreak/>
+                            <LineBreak/>
+                        </Collections:ArrayList>
+                    </Paragraph.Resources>
+                </Paragraph>
+            </FlowDocument>
+        </FlowDocumentReader>
+       
     </Grid>
 </Window>
