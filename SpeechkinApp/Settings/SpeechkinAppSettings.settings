@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SpeechkinApp.Settings" GeneratedClassName="User">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SpeechkinApp.Settings" GeneratedClassName="SpeechkinAppSettings">
   <Profiles />
   <Settings>
     <Setting Name="SpeechAuthUrl" Type="System.String" Scope="User">
@@ -10,6 +10,21 @@
     </Setting>
     <Setting Name="TranslateUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://api.cognitive.microsofttranslator.com</Value>
+    </Setting>
+    <Setting Name="SelectedDataFlowId" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="InputDeviceIndex" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="SampleRateValue" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">16000</Value>
+    </Setting>
+    <Setting Name="BitsPerSampleValue" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">16</Value>
+    </Setting>
+    <Setting Name="ChannelValue" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

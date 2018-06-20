@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpeechkinApp.Settings"
         mc:Ignorable="d"
-        Title="Settings" Height="289.71" Width="474.142" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="Settings" Height="315.7" Width="579.63" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance local:SettingsWindowModel}"
         >
     <Grid Margin="0,0,0,10">
@@ -13,6 +13,16 @@
             <Style x:Key="TextBlockStyle" TargetType="TextBlock">
                 <Setter Property="Width" Value="150"></Setter>
                 <Setter Property="TextAlignment" Value="Right"></Setter>
+            </Style>
+            <Style x:Key="TextBlockHalfStyle" TargetType="TextBlock">
+                <Setter Property="Width" Value="90"></Setter>
+                <Setter Property="TextAlignment" Value="Left"></Setter>
+                <Setter Property="Margin" Value="5,0,10,0"></Setter>
+            </Style>
+            <Style x:Key="ComboBoxHalfStyle" TargetType="ComboBox">
+                <Setter Property="Width" Value="160"></Setter>
+                <Setter Property="Margin" Value="0,0,0,0"></Setter>
+                <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
             </Style>
             <Style x:Key="TextBoxStyle" TargetType="TextBox">
                 <Setter Property="Width" Value="250"></Setter>
@@ -39,19 +49,96 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        
         <StackPanel Orientation="Vertical" Margin="10,0,10,0" Grid.ColumnSpan="2">
-            <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelStyle}">
-                <TextBlock Style="{StaticResource TextBlockStyle}">Bing speech Url:</TextBlock>
-                <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding AzureSpeechAuthUrl, Mode=TwoWay}"></TextBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelStyle}">
-                <TextBlock Style="{StaticResource TextBlockStyle}">Bing speech Key 1:</TextBlock>
-                <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding AzureSpeechPrimaryKey, Mode=TwoWay}"></TextBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelStyle}">
-                <TextBlock Style="{StaticResource TextBlockStyle}">Bing speech Key 2:</TextBlock>
-                <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding AzureSpeechSecondaryKey, Mode=TwoWay}"></TextBox>
-            </StackPanel>
+            <GroupBox>
+                <GroupBox.Header>Bing Speech</GroupBox.Header>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelStyle}">
+                        <TextBlock Style="{StaticResource TextBlockStyle}">Url:</TextBlock>
+                        <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding AzureSpeechAuthUrl, Mode=TwoWay}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelStyle}">
+                        <TextBlock Style="{StaticResource TextBlockStyle}">Key 1:</TextBlock>
+                        <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding AzureSpeechPrimaryKey, Mode=TwoWay}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelStyle}">
+                        <TextBlock Style="{StaticResource TextBlockStyle}">Key 2:</TextBlock>
+                        <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding AzureSpeechSecondaryKey, Mode=TwoWay}"></TextBox>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox>
+                <GroupBox.Header>Sound Input</GroupBox.Header>
+                <StackPanel Orientation="Vertical">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelStyle}">
+                                <TextBlock Style="{StaticResource TextBlockHalfStyle}">Audio flows:</TextBlock>
+                                <ComboBox Style="{StaticResource ComboBoxHalfStyle}"
+                                          ItemsSource="{Binding DataFlowItems}"
+                                          DisplayMemberPath="Text"
+                                          SelectedValuePath="Id"
+                                          SelectedValue="{Binding Path=SelectedDataFlowId}"
+                                >
+
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelStyle}">
+                                <TextBlock Style="{StaticResource TextBlockHalfStyle}">Sample rate kHz:</TextBlock>
+                                <ComboBox Style="{StaticResource ComboBoxHalfStyle}"
+                                          ItemsSource="{Binding SampleRateItems}"
+                                          DisplayMemberPath="Name"
+                                          SelectedValuePath="Value"
+                                          SelectedValue="{Binding Path=SampleRateValue}"
+                                >
+
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelStyle}">
+                                <TextBlock Style="{StaticResource TextBlockHalfStyle}">Channels:</TextBlock>
+                                <ComboBox Style="{StaticResource ComboBoxHalfStyle}"
+                                          ItemsSource="{Binding ChannelItems}"
+                                          DisplayMemberPath="Name"
+                                          SelectedValuePath="Value"
+                                          SelectedValue="{Binding Path=ChannelValue}"
+                                >
+
+                                </ComboBox>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="1">
+                            <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelStyle}">
+                                <TextBlock Style="{StaticResource TextBlockHalfStyle}">Device:</TextBlock>
+                                <ComboBox Style="{StaticResource ComboBoxHalfStyle}"
+                                          ItemsSource="{Binding DeviceItems}"
+                                          DisplayMemberPath="Name"
+                                          SelectedValuePath="Id"
+                                          SelectedValue="{Binding Path=InputDeviceIndex}"
+                                >
+
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelStyle}">
+                                <TextBlock Style="{StaticResource TextBlockHalfStyle}">Bits per sample :</TextBlock>
+                                <ComboBox Style="{StaticResource ComboBoxHalfStyle}"
+                                          ItemsSource="{Binding BitsPerSampleItems}"
+                                          DisplayMemberPath="Name"
+                                          SelectedValuePath="Value"
+                                          SelectedValue="{Binding Path=BitsPerSampleValue}"
+                                >
+
+                                </ComboBox>
+                            </StackPanel>
+                        </StackPanel>
+                        
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
             <Button Style="{StaticResource ButtonStyle}" Click="SaveClick">Save</Button>

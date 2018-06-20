@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,22 +45,15 @@ namespace SpeechkinApp.Behaviors
         {
             Paragraph paragraph = d as Paragraph;
             IEnumerable inlines = ParagraphInlineBehavior.GetParagraphInlineSource(paragraph);
-            string templateName = ParagraphInlineBehavior.GetTemplateResourceName(paragraph);
-            if (inlines != null && templateName != null)
+
+            var changed = inlines as INotifyCollectionChanged;
+
+            if (inlines!=null && changed!=null)
             {
-                paragraph.Inlines.Clear();
-                foreach (var inline in inlines)
-                {
-                    ArrayList templateList = paragraph.FindResource(templateName) as ArrayList;
-                    Span span = new Span();
-                    span.DataContext = inline;
-                    foreach (var templateInline in templateList)
-                    {
-                        span.Inlines.Add(templateInline as Inline);
-                    }
-                    paragraph.Inlines.Add(span);
-                }
+                var wrapper = new ObservableCollectionWrapper(paragraph, changed);
+                wrapper.Wrap();
             }
+            
         }
     }
 }

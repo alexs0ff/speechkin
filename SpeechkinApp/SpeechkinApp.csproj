@@ -40,8 +40,8 @@
     <Reference Include="CommonServiceLocator, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.8.6\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
-    <Reference Include="NAudio, Version=1.8.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.1.8.4\lib\net35\NAudio.dll</HintPath>
+    <Reference Include="CSCore, Version=1.2.1.2, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSCore.1.2.1.2\lib\net35-client\CSCore.dll</HintPath>
     </Reference>
     <Reference Include="SpeechClient, Version=0.0.0.0, Culture=neutral, PublicKeyToken=720c26922c782415, processorArchitecture=x86">
       <HintPath>..\packages\Microsoft.ProjectOxford.SpeechRecognition-x86.1.0.0.7\lib\SpeechClient.dll</HintPath>
@@ -89,13 +89,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AutoMapperExtention.cs" />
+    <Compile Include="Behaviors\ObservableCollectionWrapper.cs" />
     <Compile Include="Behaviors\ParagraphInlineBehavior.cs" />
     <Compile Include="ContainerConfiguration.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertBoolConverter.cs" />
     <Compile Include="MainWindowDataModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Settings\AudioDeviceFacade.cs" />
+    <Compile Include="Settings\AudioDeviceItem.cs" />
+    <Compile Include="Settings\BitsPerSampleItem.cs" />
+    <Compile Include="Settings\ChannelItem.cs" />
+    <Compile Include="Settings\DataFlowItem.cs" />
     <Compile Include="Settings\IsolatedStorageFacade.cs" />
+    <Compile Include="Settings\SampleRateItem.cs" />
     <Compile Include="Settings\SettingsProfile.cs" />
     <Compile Include="Settings\SettingsProxy.cs" />
     <Compile Include="Settings\SettingsWindow.xaml.cs">
@@ -109,17 +116,16 @@
       <DependentUpon>SpeechkinAppSettings.settings</DependentUpon>
     </Compile>
     <Compile Include="SpeechkinController.cs" />
+    <Compile Include="Speech\SpeechEventArgs\EndEventArgs.cs" />
     <Compile Include="Speech\RecognitionItem.cs" />
-    <Compile Include="Speech\SourceType.cs" />
     <Compile Include="Speech\BingSpeechService.cs" />
-    <Compile Include="Speech\DefaultMicrophoneSource.cs" />
     <Compile Include="Speech\ISoundDataDestination.cs" />
     <Compile Include="Speech\RecognitionStartParameters.cs" />
     <Compile Include="Speech\SoundSource.cs" />
     <Compile Include="Settings\ISpeechSettings.cs" />
+    <Compile Include="Speech\SpeechEventArgs\RecognizedEventArgs.cs" />
     <Compile Include="Speech\SpeechRecognitionClient.cs" />
     <Compile Include="Speech\SystemSource.cs" />
-    <Compile Include="Speech\WaveFormats.cs" />
     <Compile Include="Translate\Links.cs" />
     <Compile Include="WindowControllerBase.cs" />
     <Compile Include="WindowFabric.cs" />

@@ -23,12 +23,28 @@ namespace SpeechkinApp.Settings
 
         public string SpeechLanguage { get; private set; }
 
+        public int SelectedDataFlowId { get; private set; }
+
+        public int InputDeviceIndex { get; private set; }
+
+        public int SampleRateValue { get; private set; }
+
+        public int BitsPerSampleValue { get; private set; }
+
+        public int ChannelValue { get; private set; }
+
+
         public void Load()
         {
             AzureSpeechPrimaryKey = _isolatedStorage.GetData(nameof(AzureSpeechPrimaryKey));
             AzureSpeechSecondaryKey = _isolatedStorage.GetData(nameof(AzureSpeechSecondaryKey));
             AzureSpeechAuthUrl = SpeechkinAppSettings.Default.SpeechAuthUrl;
             SpeechLanguage = SpeechkinAppSettings.Default.SpeechLanguageDefault;
+            SelectedDataFlowId = SpeechkinAppSettings.Default.SelectedDataFlowId;
+            InputDeviceIndex = SpeechkinAppSettings.Default.InputDeviceIndex;
+            SampleRateValue = SpeechkinAppSettings.Default.SampleRateValue;
+            BitsPerSampleValue = SpeechkinAppSettings.Default.BitsPerSampleValue;
+            ChannelValue = SpeechkinAppSettings.Default.ChannelValue;
         }
 
         public void Save()
@@ -37,6 +53,13 @@ namespace SpeechkinApp.Settings
             _isolatedStorage.SaveData(nameof(AzureSpeechSecondaryKey), AzureSpeechSecondaryKey);
 
             SpeechkinAppSettings.Default.SpeechAuthUrl = AzureSpeechAuthUrl;
+            SpeechkinAppSettings.Default.SelectedDataFlowId = SelectedDataFlowId;
+            SpeechkinAppSettings.Default.InputDeviceIndex = InputDeviceIndex;
+            SpeechkinAppSettings.Default.SampleRateValue = SampleRateValue;
+            SpeechkinAppSettings.Default.BitsPerSampleValue = BitsPerSampleValue;
+            SpeechkinAppSettings.Default.ChannelValue = ChannelValue;
+
+            SpeechkinAppSettings.Default.Save();
         }
     }
 }

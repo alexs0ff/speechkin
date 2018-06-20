@@ -33,7 +33,11 @@ namespace SpeechkinApp
         {
             _recognitionClient.Start(parameters =>
             {
-                parameters.Source = (SourceType) Model.CurrentSource;
+                parameters.OnNewItemAction = OnNewRecognition;
+                parameters.OnEnd += s =>
+                {
+                    Stop();
+                };
             });
             Model.IsStarted = true;
         }
@@ -42,6 +46,11 @@ namespace SpeechkinApp
         {
             Model.IsStarted = false;
             _recognitionClient.Stop();
+        }
+
+        private void OnNewRecognition(RecognitionItem newItem)
+        {
+            Model.RecognitionItems.Add(newItem);
         }
     }
 }

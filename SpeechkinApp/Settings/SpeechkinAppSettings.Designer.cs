@@ -58,5 +58,65 @@ namespace SpeechkinApp.Settings {
                 this["TranslateUrl"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int SelectedDataFlowId {
+            get {
+                return ((int)(this["SelectedDataFlowId"]));
+            }
+            set {
+                this["SelectedDataFlowId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int InputDeviceIndex {
+            get {
+                return ((int)(this["InputDeviceIndex"]));
+            }
+            set {
+                this["InputDeviceIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("16000")]
+        public int SampleRateValue {
+            get {
+                return ((int)(this["SampleRateValue"]));
+            }
+            set {
+                this["SampleRateValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("16")]
+        public int BitsPerSampleValue {
+            get {
+                return ((int)(this["BitsPerSampleValue"]));
+            }
+            set {
+                this["BitsPerSampleValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int ChannelValue {
+            get {
+                return ((int)(this["ChannelValue"]));
+            }
+            set {
+                this["ChannelValue"] = value;
+            }
+        }
     }
 }

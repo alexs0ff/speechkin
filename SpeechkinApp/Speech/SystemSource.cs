@@ -3,75 +3,101 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NAudio.Wave;
-using NAudio.Wave.Compression;
+using CSCore;
+using CSCore.CoreAudioAPI;
+using CSCore.SoundIn;
+using CSCore.Streams;
+using SpeechkinApp.Settings;
 
 namespace SpeechkinApp.Speech
 {
     public class SystemSource:SoundSource
     {
-        private readonly WasapiLoopbackCapture _waveIn;
+        private readonly ISpeechSettings _speechSettings;
 
-        private AcmStream _acmStream;
+        private WasapiCapture _soundIn;
+
+        private IWaveSource _waveSource;
 
         private bool _started;
 
-        public SystemSource()
+        
+        public SystemSource(ISpeechSettings speechSettings)
         {
-            _waveIn = new WasapiLoopbackCapture();
-
-            _waveIn.DataAvailable += (sender, args) =>
-            {
-                if (_acmStream==null)
-                {
-                    return;
-                }
-
-                byte[] newArray16Bit = new byte[args.BytesRecorded / 2];
-                short two;
-                float value;
-                for (int i = 0, j = 0; i < args.BytesRecorded; i += 4, j += 2)
-                {
-                    value = (BitConverter.ToSingle(args.Buffer, i));
-                    two = (short)(value * short.MaxValue);
-                    newArray16Bit[j] = (byte)(two & 0xFF);
-                    newArray16Bit[j + 1] = (byte)((two >> 8) & 0xFF);
-                }
-
-                Buffer.BlockCopy(newArray16Bit, 0, _acmStream.SourceBuffer, 0, newArray16Bit.Length);
-                int sourceBytesConverted = 0;
-                var convertedBytes = _acmStream.Convert(newArray16Bit.Length, out sourceBytesConverted);
-                
-                var converted = new byte[convertedBytes];
-                Buffer.BlockCopy(_acmStream.DestBuffer, 0, converted, 0, convertedBytes);
-
-                SendData(converted, convertedBytes);
-            };
-
+            _speechSettings = speechSettings;
         }
 
         public override void Dispose()
         {
-            
+            _waveSource?.Dispose();
+            _soundIn?.Dispose();
         }
 
         public override void Start()
         {
             if (_started)
             {
-                return;
+                Stop();
             }
+            DataFlow dataFlow = (DataFlow)_speechSettings.SelectedDataFlowId;
 
-            if (_acmStream!=null)
+            var devices = MMDeviceEnumerator.EnumerateDevices(dataFlow, DeviceState.Active);
+
+            
+            if (devices.Count -1 <_speechSettings.InputDeviceIndex)
             {
-                _acmStream.Dispose();
+                throw new Exception($" device Index {_speechSettings.InputDeviceIndex} is not avalibe");
             }
 
-            WaveFormat outf = new WaveFormat(WaveFormats.Frequency,WaveFormats.Bits, WaveFormats.Channels);
+            if (dataFlow == DataFlow.Render)
+            {
+                var wasapiFormat = new WaveFormat(_speechSettings.SampleRateValue, _speechSettings.BitsPerSampleValue, _speechSettings.ChannelValue);
+                _soundIn = new WasapiLoopbackCapture(100, wasapiFormat);
+            }
+            else
+            {
+                _soundIn = new WasapiCapture();
+            }
 
-            var inFormat = new WaveFormat(_waveIn.WaveFormat.SampleRate, _waveIn.WaveFormat.Channels);
+            _soundIn.Device = devices[_speechSettings.InputDeviceIndex];
+            
+            _soundIn.Initialize();
 
-            _acmStream = new AcmStream(inFormat, outf);
+            var wasapiCaptureSource = new SoundInSource(_soundIn) { FillWithZeros = false };
+
+            _waveSource = wasapiCaptureSource
+                .ChangeSampleRate(_speechSettings.SampleRateValue) // sample rate
+                .ToSampleSource()
+                .ToWaveSource(_speechSettings.BitsPerSampleValue); //bits per sample;
+
+            if (_speechSettings.ChannelValue == 1)
+            {
+                _waveSource = _waveSource.ToMono();
+            }
+            else
+            {
+                _waveSource = _waveSource.ToStereo();
+            }
+
+            
+            wasapiCaptureSource.DataAvailable += (s, e) =>
+            {
+                //read data from the converedSource
+                //important: don't use the e.Data here
+                //the e.Data contains the raw data provided by the 
+                //soundInSource which won't have your target format
+                byte[] buffer = new byte[_waveSource.WaveFormat.BytesPerSecond / 2];
+                int read;
+
+                //keep reading as long as we still get some data
+                //if you're using such a loop, make sure that soundInSource.FillWithZeros is set to false
+                while ((read = _waveSource.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    SendData(buffer,read);
+                }
+            };
+
+            _soundIn.Start();
 
             _started = true;
         }
@@ -79,6 +105,8 @@ namespace SpeechkinApp.Speech
         public override void Stop()
         {
             _started = false;
+            _soundIn?.Stop();
+            Dispose();
         }
     }
 }

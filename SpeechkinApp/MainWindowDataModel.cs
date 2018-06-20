@@ -13,15 +13,12 @@ namespace SpeechkinApp
     public class MainWindowDataModel:INotifyPropertyChanged
     {
         private bool _isStarted;
-        private int _currentSource;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MainWindowDataModel()
         {
             RecognitionItems = new ObservableCollection<RecognitionItem>();
-            RecognitionItems.Add(new RecognitionItem{Text = "22"});
-            RecognitionItems.Add(new RecognitionItem{Text = "33"});
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -35,16 +32,6 @@ namespace SpeechkinApp
             set
             {
                 _isStarted = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int CurrentSource
-        {
-            get { return _currentSource; }
-            set
-            {
-                _currentSource = value;
                 OnPropertyChanged();
             }
         }

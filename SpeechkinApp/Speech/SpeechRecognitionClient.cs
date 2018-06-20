@@ -8,19 +8,16 @@ namespace SpeechkinApp.Speech
 {
     public class SpeechRecognitionClient:IDisposable
     {
-        private readonly DefaultMicrophoneSource _defaultMicrophoneSource;
-
         private readonly SystemSource _systemSource;
 
         private readonly BingSpeechService _bingSpeechService;
-
-        private SoundSource _currentSource;
+        
 
         private bool _isStarted;
 
-        public SpeechRecognitionClient(DefaultMicrophoneSource defaultMicrophoneSource, SystemSource systemSource, BingSpeechService bingSpeechService)
+        public SpeechRecognitionClient(SystemSource systemSource, BingSpeechService bingSpeechService)
         {
-            _defaultMicrophoneSource = defaultMicrophoneSource;
+            
             _systemSource = systemSource;
             _bingSpeechService = bingSpeechService;
         }
@@ -36,33 +33,41 @@ namespace SpeechkinApp.Speech
             cfg(par);
 
             _isStarted = true;
-
             
-            if (par.Source == SourceType.System)
-            {
-                _currentSource = _systemSource;
-            }
-            else
-            {
-                _currentSource = _defaultMicrophoneSource;
-            }
 
-            
+            _bingSpeechService.EndRecognition += (sender, args) =>
+            {
+                Stop();
+                par.OnEnd?.Invoke(args.EndReasonText);
+            };
+
+            _bingSpeechService.Recognition += (sender, args) =>
+            {
+                par.OnNewItemAction(args.Item);
+            };
+
             _bingSpeechService.Start();
 
-            _currentSource.SetDestination(_bingSpeechService);
-            _currentSource.Start();
+            _systemSource.SetDestination(_bingSpeechService);
+            _systemSource.Start();
+            
         }
 
         public void Stop()
         {
-            _currentSource?.Stop();
+            if (!_isStarted)
+            {
+                return;
+            }
+            _isStarted = false;
+            _systemSource?.Stop();
             _bingSpeechService.Stop();
         }
 
         public void Dispose()
         {
-            _currentSource?.Dispose();
+            _isStarted = false;
+            _systemSource?.Dispose();
             _bingSpeechService?.Stop();
         }
     }

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SpeechkinApp.Settings;
+using SpeechkinApp.Speech;
 
 namespace SpeechkinApp
 {
@@ -36,6 +37,16 @@ namespace SpeechkinApp
         private void ShowOptionsClick(object sender, RoutedEventArgs e)
         {
             _controller.ShowSettings();
+        }
+
+        private void StartClick(object sender, RoutedEventArgs e)
+        {
+            _controller.StartRecognition();
+        }
+
+        private void StopClick(object sender, RoutedEventArgs e)
+        {
+            _controller.Stop();
         }
     }
 }
