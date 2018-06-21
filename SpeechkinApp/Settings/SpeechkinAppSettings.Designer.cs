@@ -50,12 +50,12 @@ namespace SpeechkinApp.Settings {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://api.cognitive.microsofttranslator.com")]
-        public string TranslateUrl {
+        public string TranslatorUrl {
             get {
-                return ((string)(this["TranslateUrl"]));
+                return ((string)(this["TranslatorUrl"]));
             }
             set {
-                this["TranslateUrl"] = value;
+                this["TranslatorUrl"] = value;
             }
         }
         
@@ -116,6 +116,18 @@ namespace SpeechkinApp.Settings {
             }
             set {
                 this["ChannelValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:00:05")]
+        public global::System.TimeSpan TranslatorTimeout {
+            get {
+                return ((global::System.TimeSpan)(this["TranslatorTimeout"]));
+            }
+            set {
+                this["TranslatorTimeout"] = value;
             }
         }
     }

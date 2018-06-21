@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SpeechkinApp.Main;
 using SpeechkinApp.Settings;
+using SpeechkinApp.Translate;
 using Unity;
 
 namespace SpeechkinApp
@@ -18,7 +20,14 @@ namespace SpeechkinApp
 
             container.RegisterSingleton<SpeechkinController>();
             container.RegisterSingleton<SettingsProxy>();
-            container.RegisterInstance<ISpeechSettings>(container.Resolve<SettingsProxy>());
+            var proxy = container.Resolve<SettingsProxy>();
+            proxy.Load();
+            container.RegisterInstance<ISpeechSettings>(proxy);
+            container.RegisterInstance<ITranslationSettings>(proxy);
+
+            container.RegisterSingleton<ITranslationApiSender, TranslationApiSender>();
+
+            
 
             var windowFabric = new WindowFabric(container);
             container.RegisterInstance(windowFabric);

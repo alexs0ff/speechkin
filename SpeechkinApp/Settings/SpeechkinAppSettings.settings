@@ -8,7 +8,7 @@
     <Setting Name="SpeechLanguageDefault" Type="System.String" Scope="User">
       <Value Profile="(Default)">en-US</Value>
     </Setting>
-    <Setting Name="TranslateUrl" Type="System.String" Scope="User">
+    <Setting Name="TranslatorUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://api.cognitive.microsofttranslator.com</Value>
     </Setting>
     <Setting Name="SelectedDataFlowId" Type="System.Int32" Scope="User">
@@ -25,6 +25,9 @@
     </Setting>
     <Setting Name="ChannelValue" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="TranslatorTimeout" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:05</Value>
     </Setting>
   </Settings>
 </SettingsFile>

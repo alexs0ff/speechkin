@@ -43,6 +43,12 @@
     <Reference Include="CSCore, Version=1.2.1.2, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
       <HintPath>..\packages\CSCore.1.2.1.2\lib\net35-client\CSCore.dll</HintPath>
     </Reference>
+    <Reference Include="Flurl, Version=2.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Flurl.2.7.1\lib\net40\Flurl.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SpeechClient, Version=0.0.0.0, Culture=neutral, PublicKeyToken=720c26922c782415, processorArchitecture=x86">
       <HintPath>..\packages\Microsoft.ProjectOxford.SpeechRecognition-x86.1.0.0.7\lib\SpeechClient.dll</HintPath>
     </Reference>
@@ -94,7 +100,9 @@
     <Compile Include="ContainerConfiguration.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertBoolConverter.cs" />
-    <Compile Include="MainWindowDataModel.cs" />
+    <Compile Include="Infrastructure\HotKey.cs" />
+    <Compile Include="Main\LanguageItem.cs" />
+    <Compile Include="Main\MainWindowDataModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Settings\AudioDeviceFacade.cs" />
     <Compile Include="Settings\AudioDeviceItem.cs" />
@@ -102,6 +110,7 @@
     <Compile Include="Settings\ChannelItem.cs" />
     <Compile Include="Settings\DataFlowItem.cs" />
     <Compile Include="Settings\IsolatedStorageFacade.cs" />
+    <Compile Include="Settings\ITranslationSettings.cs" />
     <Compile Include="Settings\SampleRateItem.cs" />
     <Compile Include="Settings\SettingsProfile.cs" />
     <Compile Include="Settings\SettingsProxy.cs" />
@@ -115,7 +124,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>SpeechkinAppSettings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SpeechkinController.cs" />
+    <Compile Include="Main\SpeechkinController.cs" />
     <Compile Include="Speech\SpeechEventArgs\EndEventArgs.cs" />
     <Compile Include="Speech\RecognitionItem.cs" />
     <Compile Include="Speech\BingSpeechService.cs" />
@@ -126,10 +135,21 @@
     <Compile Include="Speech\SpeechEventArgs\RecognizedEventArgs.cs" />
     <Compile Include="Speech\SpeechRecognitionClient.cs" />
     <Compile Include="Speech\SystemSource.cs" />
+    <Compile Include="Translate\DetectedLanguageItem.cs" />
+    <Compile Include="Translate\ITranslationApiSender.cs" />
     <Compile Include="Translate\Links.cs" />
+    <Compile Include="Translate\MediaFormats.cs" />
+    <Compile Include="Translate\TranslatedItem.cs" />
+    <Compile Include="Translate\TranslatedResult.cs" />
+    <Compile Include="Translate\TranslationAPIClient.cs" />
+    <Compile Include="Translate\TranslationApiSender.cs" />
+    <Compile Include="Translate\TranslationItem.cs" />
+    <Compile Include="Translate\TranslationLanguage.cs" />
+    <Compile Include="Translate\TranslationRequest.cs" />
+    <Compile Include="Translate\TranslationResponse.cs" />
     <Compile Include="WindowControllerBase.cs" />
     <Compile Include="WindowFabric.cs" />
-    <Page Include="MainWindow.xaml">
+    <Page Include="Main\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -137,7 +157,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Main\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

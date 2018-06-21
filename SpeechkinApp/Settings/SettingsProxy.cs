@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpeechkinApp.Settings
 {
-    public class SettingsProxy:ISpeechSettings
+    public class SettingsProxy:ISpeechSettings, ITranslationSettings
     {
         private readonly IsolatedStorageFacade _isolatedStorage;
 
@@ -16,8 +16,6 @@ namespace SpeechkinApp.Settings
         }
 
         public string AzureSpeechPrimaryKey { get; private set; }
-
-        public string AzureSpeechSecondaryKey { get; private set; }
 
         public string AzureSpeechAuthUrl { get; private set; }
 
@@ -33,11 +31,17 @@ namespace SpeechkinApp.Settings
 
         public int ChannelValue { get; private set; }
 
+        public string TranslatorUrl { get; private set; }
+
+        public string TranslatorPrimaryKey { get; private set; }
+
+        public TimeSpan TranslatorTimeout { get; private set; }
+
 
         public void Load()
         {
             AzureSpeechPrimaryKey = _isolatedStorage.GetData(nameof(AzureSpeechPrimaryKey));
-            AzureSpeechSecondaryKey = _isolatedStorage.GetData(nameof(AzureSpeechSecondaryKey));
+            TranslatorPrimaryKey = _isolatedStorage.GetData(nameof(TranslatorPrimaryKey));
             AzureSpeechAuthUrl = SpeechkinAppSettings.Default.SpeechAuthUrl;
             SpeechLanguage = SpeechkinAppSettings.Default.SpeechLanguageDefault;
             SelectedDataFlowId = SpeechkinAppSettings.Default.SelectedDataFlowId;
@@ -45,12 +49,14 @@ namespace SpeechkinApp.Settings
             SampleRateValue = SpeechkinAppSettings.Default.SampleRateValue;
             BitsPerSampleValue = SpeechkinAppSettings.Default.BitsPerSampleValue;
             ChannelValue = SpeechkinAppSettings.Default.ChannelValue;
+            TranslatorUrl = SpeechkinAppSettings.Default.TranslatorUrl;
+            TranslatorTimeout = SpeechkinAppSettings.Default.TranslatorTimeout;
         }
 
         public void Save()
         {
             _isolatedStorage.SaveData(nameof(AzureSpeechPrimaryKey), AzureSpeechPrimaryKey);
-            _isolatedStorage.SaveData(nameof(AzureSpeechSecondaryKey), AzureSpeechSecondaryKey);
+            _isolatedStorage.SaveData(nameof(TranslatorPrimaryKey), TranslatorPrimaryKey);
 
             SpeechkinAppSettings.Default.SpeechAuthUrl = AzureSpeechAuthUrl;
             SpeechkinAppSettings.Default.SelectedDataFlowId = SelectedDataFlowId;
@@ -58,6 +64,7 @@ namespace SpeechkinApp.Settings
             SpeechkinAppSettings.Default.SampleRateValue = SampleRateValue;
             SpeechkinAppSettings.Default.BitsPerSampleValue = BitsPerSampleValue;
             SpeechkinAppSettings.Default.ChannelValue = ChannelValue;
+            SpeechkinAppSettings.Default.TranslatorUrl = TranslatorUrl;
 
             SpeechkinAppSettings.Default.Save();
         }

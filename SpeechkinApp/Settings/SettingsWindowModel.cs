@@ -16,8 +16,7 @@ namespace SpeechkinApp.Settings
         private string _bingSpeechAuthUrl;
 
         private string _bingSpeechKey1;
-
-        private string _bingSpeechKey2;
+        
 
         private int _selectedDataFlowItem;
 
@@ -28,6 +27,10 @@ namespace SpeechkinApp.Settings
         private int _bitsPerSampleValue;
 
         private int _channelValue;
+
+        private string _translatorUrl;
+
+        private string _translatorPrimaryKey;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -65,12 +68,22 @@ namespace SpeechkinApp.Settings
             }
         }
 
-        public string AzureSpeechSecondaryKey
+        public string TranslatorUrl
         {
-            get { return _bingSpeechKey2; }
+            get { return _translatorUrl; }
             set
             {
-                _bingSpeechKey2 = value;
+                _translatorUrl = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string TranslatorPrimaryKey
+        {
+            get { return _translatorPrimaryKey; }
+            set
+            {
+                _translatorPrimaryKey = value;
                 OnPropertyChanged();
             }
         }

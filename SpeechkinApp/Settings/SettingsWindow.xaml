@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpeechkinApp.Settings"
         mc:Ignorable="d"
-        Title="Settings" Height="315.7" Width="579.63" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="Settings" Height="350" Width="579.63" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance local:SettingsWindowModel}"
         >
     <Grid Margin="0,0,0,10">
@@ -52,19 +52,23 @@
         
         <StackPanel Orientation="Vertical" Margin="10,0,10,0" Grid.ColumnSpan="2">
             <GroupBox>
-                <GroupBox.Header>Bing Speech</GroupBox.Header>
+                <GroupBox.Header>Azure</GroupBox.Header>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelStyle}">
-                        <TextBlock Style="{StaticResource TextBlockStyle}">Url:</TextBlock>
+                        <TextBlock Style="{StaticResource TextBlockStyle}">Bing speech url:</TextBlock>
                         <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding AzureSpeechAuthUrl, Mode=TwoWay}"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelStyle}">
-                        <TextBlock Style="{StaticResource TextBlockStyle}">Key 1:</TextBlock>
+                        <TextBlock Style="{StaticResource TextBlockStyle}">Bing Speech Key</TextBlock>
                         <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding AzureSpeechPrimaryKey, Mode=TwoWay}"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelStyle}">
-                        <TextBlock Style="{StaticResource TextBlockStyle}">Key 2:</TextBlock>
-                        <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding AzureSpeechSecondaryKey, Mode=TwoWay}"></TextBox>
+                        <TextBlock Style="{StaticResource TextBlockStyle}">Translator url:</TextBlock>
+                        <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding TranslatorUrl, Mode=TwoWay}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelStyle}">
+                        <TextBlock Style="{StaticResource TextBlockStyle}">Translator Key:</TextBlock>
+                        <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding TranslatorPrimaryKey, Mode=TwoWay}"></TextBox>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
