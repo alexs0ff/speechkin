@@ -54,6 +54,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -97,10 +98,12 @@
     <Compile Include="AutoMapperExtention.cs" />
     <Compile Include="Behaviors\ObservableCollectionWrapper.cs" />
     <Compile Include="Behaviors\ParagraphInlineBehavior.cs" />
+    <Compile Include="Behaviors\ScrollViewerExtention.cs" />
     <Compile Include="ContainerConfiguration.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertBoolConverter.cs" />
     <Compile Include="Infrastructure\HotKey.cs" />
+    <Compile Include="Infrastructure\RemoteGetText.cs" />
     <Compile Include="Main\LanguageItem.cs" />
     <Compile Include="Main\MainWindowDataModel.cs" />
     <Compile Include="Properties\Annotations.cs" />

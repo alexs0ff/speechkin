@@ -66,40 +66,25 @@ namespace SpeechkinApp.Main
         {
             Model.RecognitionItems.Add(newItem);
         }
+       
 
-        private MainWindow GetMainWindow()
+        public async Task Translate(string text, Action<TranslationRequest> requestAction,
+            Action<TranslationResponse> responseAction)
         {
-            return (MainWindow) _window;
-        }
+            TranslationResponse response;
 
-        public async Task TranslateFromBox()
-        {
-            TranslationResponse response =null;
-            var main = GetMainWindow();
-            var request = new TranslationRequest();
             try
             {
-                
-                var text = main.translateTextBox.SelectedText;
-
-                if (string.IsNullOrWhiteSpace(text))
+                var request = new TranslationRequest();
+                request.From = (TranslationLanguage)Model.FromLanguageId;
+                request.To = (TranslationLanguage)Model.ToLanguageId;
+                request.Items.Add(new TranslationItem
                 {
-                    text = main.translateTextBox.Text;
-                }
+                    Text = text
+                });
 
-                if (!string.IsNullOrWhiteSpace(text))
-                {
-                    
-                    request.From = (TranslationLanguage)Model.FromLanguageId;
-                    request.To = (TranslationLanguage)Model.ToLanguageId;
-                    request.Items.Add(new TranslationItem
-                    {
-                        Text = text
-                    });
-
-                    main.AddRequestInfo(request);
-                    response = await _translationApiClient.Send(request, CancellationToken.None);
-                }
+                requestAction?.Invoke(request);
+                response = await _translationApiClient.Send(request, CancellationToken.None);
             }
             catch (Exception ex)
             {
@@ -107,8 +92,9 @@ namespace SpeechkinApp.Main
                 response.IsSuccess = false;
                 response.ErrorMessage = ex.Message;
             }
-         
-            main.AddTranslatedText(response);
+
+            responseAction?.Invoke(response);
+
         }
     }
 }
