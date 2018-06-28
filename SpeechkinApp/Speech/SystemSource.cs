@@ -15,16 +15,18 @@ namespace SpeechkinApp.Speech
     {
         private readonly ISpeechSettings _speechSettings;
 
+        private readonly WaveFormatAdapter _waveFormatAdapter;
+
         private WasapiCapture _soundIn;
 
         private IWaveSource _waveSource;
 
         private bool _started;
 
-        
-        public SystemSource(ISpeechSettings speechSettings)
+        public SystemSource(ISpeechSettings speechSettings, WaveFormatAdapter waveFormatAdapter)
         {
             _speechSettings = speechSettings;
+            _waveFormatAdapter = waveFormatAdapter;
         }
 
         public override void Dispose()
@@ -51,7 +53,7 @@ namespace SpeechkinApp.Speech
 
             if (dataFlow == DataFlow.Render)
             {
-                var wasapiFormat = new WaveFormat(_speechSettings.SampleRateValue, _speechSettings.BitsPerSampleValue, _speechSettings.ChannelValue);
+                var wasapiFormat = _waveFormatAdapter.WaveFormatFromCurrentSettings();
                 _soundIn = new WasapiLoopbackCapture(100, wasapiFormat);
             }
             else

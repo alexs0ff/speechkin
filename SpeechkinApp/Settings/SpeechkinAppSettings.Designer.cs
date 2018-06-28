@@ -130,5 +130,17 @@ namespace SpeechkinApp.Settings {
                 this["TranslatorTimeout"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DocumentsPath {
+            get {
+                return ((string)(this["DocumentsPath"]));
+            }
+            set {
+                this["DocumentsPath"] = value;
+            }
+        }
     }
 }

@@ -8,18 +8,33 @@ namespace SpeechkinApp.Speech
 {
     public abstract class SoundSource:IDisposable
     {
-        private ISoundDataDestination _dataDestination;
+        private readonly IList<ISoundDataDestination> _dataDestinations = new List<ISoundDataDestination>();
 
-        public void SetDestination(ISoundDataDestination destination)
+        public void AddDestination(ISoundDataDestination destination)
         {
-            _dataDestination = destination;
+            _dataDestinations.Add(destination);
         }
 
         protected void SendData(byte[] data, int count)
         {
-            var dest = _dataDestination;
+            foreach (var soundDataDestination in _dataDestinations)
+            {
+                TryInvokeDestination(soundDataDestination, data, count);
+            }
+        }
 
-            dest?.OnData(data, count);
+        private bool TryInvokeDestination(ISoundDataDestination destination, byte[] data, int count)
+        {
+            try
+            {
+                destination?.OnData(data, count);
+                return true;
+            }
+            catch (Exception )
+            {
+
+                return false;
+            } 
         }
 
         public abstract void Dispose();

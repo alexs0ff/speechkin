@@ -11,15 +11,17 @@ namespace SpeechkinApp.Speech
         private readonly SystemSource _systemSource;
 
         private readonly BingSpeechService _bingSpeechService;
-        
+
+        private readonly WaveWriterClient _waveWriterClient;
 
         private bool _isStarted;
 
-        public SpeechRecognitionClient(SystemSource systemSource, BingSpeechService bingSpeechService)
+        public SpeechRecognitionClient(SystemSource systemSource, BingSpeechService bingSpeechService, WaveWriterClient waveWriterClient)
         {
             
             _systemSource = systemSource;
             _bingSpeechService = bingSpeechService;
+            _waveWriterClient = waveWriterClient;
         }
 
         public void Start(Action<RecognitionStartParameters> cfg)
@@ -48,9 +50,13 @@ namespace SpeechkinApp.Speech
 
             _bingSpeechService.Start();
 
-            _systemSource.SetDestination(_bingSpeechService);
-            _systemSource.Start();
+            _systemSource.AddDestination(_bingSpeechService);
+            _systemSource.AddDestination(_waveWriterClient);
             
+            _systemSource.Start();
+            _waveWriterClient.Start();
+
+
         }
 
         public void Stop()
@@ -62,6 +68,7 @@ namespace SpeechkinApp.Speech
             _isStarted = false;
             _systemSource?.Stop();
             _bingSpeechService.Stop();
+            _waveWriterClient.Stop();
         }
 
         public void Dispose()
@@ -69,6 +76,7 @@ namespace SpeechkinApp.Speech
             _isStarted = false;
             _systemSource?.Dispose();
             _bingSpeechService?.Stop();
+            _waveWriterClient?.Dispose();
         }
     }
 }

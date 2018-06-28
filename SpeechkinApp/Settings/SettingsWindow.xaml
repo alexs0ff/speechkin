@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpeechkinApp.Settings"
         mc:Ignorable="d"
-        Title="Settings" Height="350" Width="579.63" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="Settings" Height="400" Width="579.63" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance local:SettingsWindowModel}"
         >
     <Grid Margin="0,0,0,10">
@@ -141,6 +141,16 @@
                         </StackPanel>
                         
                     </Grid>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox>
+                <GroupBox.Header>Documents</GroupBox.Header>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelStyle}">
+                        <TextBlock Style="{StaticResource TextBlockStyle}">Path:</TextBlock>
+                        <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding DocumentsPath, Mode=TwoWay}"></TextBox>
+                        <Button MinWidth="30" Click="OpenDocumentPathClick">…</Button>
+                    </StackPanel>
                 </StackPanel>
             </GroupBox>
         </StackPanel>

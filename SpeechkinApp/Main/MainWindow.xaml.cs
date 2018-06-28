@@ -267,6 +267,11 @@ namespace SpeechkinApp.Main
                     await TranslateFromBox();
                 }
             }
+
+            else if(e.Key == Key.F8)
+            {
+                _controller.ChangeRussianToEnglish();
+            }
         }
 
         private async void FlowDocumentReader_PreviewKeyDown(object sender, KeyEventArgs e)

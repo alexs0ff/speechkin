@@ -96,5 +96,20 @@ namespace SpeechkinApp.Main
             responseAction?.Invoke(response);
 
         }
+
+        public void ChangeRussianToEnglish()
+        {
+            if (Model.FromLanguageId == (int)TranslationLanguage.Russian)
+            {
+                Model.FromLanguageId = (int)TranslationLanguage.English;
+                Model.ToLanguageId = (int)TranslationLanguage.Russian;
+            }
+            else
+            {
+                Model.FromLanguageId = (int)TranslationLanguage.Russian;
+                Model.ToLanguageId = (int)TranslationLanguage.English;
+            }
+            
+        }
     }
 }

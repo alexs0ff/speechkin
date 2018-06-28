@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpeechkinApp.Settings
 {
-    public class SettingsProxy:ISpeechSettings, ITranslationSettings
+    public class SettingsProxy:ISpeechSettings, ITranslationSettings, IDocumentsSettings
     {
         private readonly IsolatedStorageFacade _isolatedStorage;
 
@@ -35,6 +35,8 @@ namespace SpeechkinApp.Settings
 
         public string TranslatorPrimaryKey { get; private set; }
 
+        public string DocumentsPath { get; private set; }
+
         public TimeSpan TranslatorTimeout { get; private set; }
 
 
@@ -51,6 +53,7 @@ namespace SpeechkinApp.Settings
             ChannelValue = SpeechkinAppSettings.Default.ChannelValue;
             TranslatorUrl = SpeechkinAppSettings.Default.TranslatorUrl;
             TranslatorTimeout = SpeechkinAppSettings.Default.TranslatorTimeout;
+            DocumentsPath = SpeechkinAppSettings.Default.DocumentsPath;
         }
 
         public void Save()
@@ -65,6 +68,7 @@ namespace SpeechkinApp.Settings
             SpeechkinAppSettings.Default.BitsPerSampleValue = BitsPerSampleValue;
             SpeechkinAppSettings.Default.ChannelValue = ChannelValue;
             SpeechkinAppSettings.Default.TranslatorUrl = TranslatorUrl;
+            SpeechkinAppSettings.Default.DocumentsPath = DocumentsPath;
 
             SpeechkinAppSettings.Default.Save();
         }

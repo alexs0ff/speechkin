@@ -31,6 +31,7 @@ namespace SpeechkinApp.Settings
         private string _translatorUrl;
 
         private string _translatorPrimaryKey;
+        private string _documentsPath;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -145,6 +146,16 @@ namespace SpeechkinApp.Settings
             set
             {
                 _channelValue = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string DocumentsPath
+        {
+            get { return _documentsPath; }
+            set
+            {
+                _documentsPath = value;
                 OnPropertyChanged();
             }
         }

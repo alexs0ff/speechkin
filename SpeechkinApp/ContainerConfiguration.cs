@@ -24,6 +24,7 @@ namespace SpeechkinApp
             proxy.Load();
             container.RegisterInstance<ISpeechSettings>(proxy);
             container.RegisterInstance<ITranslationSettings>(proxy);
+            container.RegisterInstance<IDocumentsSettings>(proxy);
 
             container.RegisterSingleton<ITranslationApiSender, TranslationApiSender>();
 
